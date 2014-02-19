@@ -1,0 +1,27 @@
+﻿<!--14633<!>ui_controls.css,ui_controls.js<!>0<!>6524<!>0<!><!json>{"section":"people","has_more":true,"offset":40,"summary":"В этой группе найдено 2<span class=\"num_delim\"> <\/span>034 человека<span class=\"divide\">|<\/span><span><a href=\"\/berlogatut\" onclick=\"return nav.go(this, event, {back: true})\">Вернуться к группе<\/a><\/span><a id=\"search_sort_dd\" class=\"dd_link fl_r\">По популярности<\/a>","auto_rows":"","script":"var filterTypes = [[3,\"По популярности\"],[1,\"По дате регистрации\"]];\nif (cur.sortDD) {\n  re(cur.sortDD.container);\n}\ncur.sortDD = new DropdownMenu(filterTypes, {\n  target: ge('search_sort_dd'),\n  value: 3,\n  fadeSpeed: 0,\n  onSelect: function(event) {\n    if (event) searcher.switchFilter('sort', event.target.index || 0);\n  }\n});","htitle":"Участники сообщества группа БЕРЛОГА","loc":"search?c%5Bcity%5D=1&c%5Bcountry%5D=1&c%5Bgroup%5D=478898&c%5Bname%5D=1&c%5Bphoto%5D=1&c%5Bsection%5D=people"}<!><div class="people_row three_col_row clear_fix">
+  <div class="img search_bigph_wrap fl_l" onmouseover="Searcher.bigphOver(this, 1421583)">
+    <a href="/tooniegirl" onclick="return nav.go(this, event);"><img class="search_item_img" src="http://cs310222.vk.me/v310222583/4340/4t4cPkoz03Q.jpg" /></a>
+  </div>
+  <div class="info fl_l">
+    <div class="labeled name"><a href="/tooniegirl" onclick="return nav.go(this, event);">Мария Смолина</a></div><div class="labeled ">МГУП им. И. Федорова (бывш. МПИ) '17</div><div class="online">Online</div>
+  </div>
+  
+</div><div class="people_row three_col_row clear_fix">
+  <div class="img search_bigph_wrap fl_l" onmouseover="Searcher.bigphOver(this, 5202819)">
+    <a href="/amirsanova" onclick="return nav.go(this, event);"><img class="search_item_img" src="http://cs322324.vk.me/v322324819/7b8d/l_1j_zQO-78.jpg" /></a>
+  </div>
+  <div class="info fl_l">
+    <div class="labeled name"><a href="/amirsanova" onclick="return nav.go(this, event);">Анастасия Мирсанова</a></div><div class="labeled ">УГНТУ '05</div>
+  </div>
+  
+</div><div class="people_row three_col_row clear_fix">
+  <div class="img search_bigph_wrap fl_l" onmouseover="Searcher.bigphOver(this, 154914280)">
+    <a href="/bizneschans" onclick="return nav.go(this, event);"><img class="search_item_img" src="http://cs417118.vk.me/v417118280/f884/v33wL9Fp8sY.jpg" /></a>
+  </div>
+  <div class="info fl_l">
+    <div class="labeled name"><a href="/bizneschans" onclick="return nav.go(this, event);">Максим Кузнецов</a></div><div class="labeled ">СГА (ПФ) '05</div>
+  </div>
+</div></div><a id="show_more_link" onclick="return searcher.showMore();" class="clear" style="">
+  <div id="show_more_progress" class="progress"></div>
+  <div id="show_more">Показать ещё</div>
+</a><!><!><!>
