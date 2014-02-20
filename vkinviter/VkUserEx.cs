@@ -84,7 +84,7 @@ namespace vkinviter
             List<VkUser> listVkUser = new List<VkUser>();
             VkUser vkUser;
             //['1298','http://cs315422.vk.me/u01298/d_e13351b2.jpg','/id1298','2','0','Сергей Суворов','0','1','61','09','0','fe9642838dd1d04fb1']
-            string pattern = @"\['(\d*)','[^'\]]+','\/([\w\.]+)','\d*','\d+','([^']+)','\d+','(\d+)','\d*','\d*','\d+','(\w+)'\]";
+            string pattern = @"\['(\d*)','[^']*','\/([\w\.]+)','[^']*','[^']*','([^']+)','[^']*','(\d+)','[^']*','[^']*','[^']*','(\w+)'\]";
             foreach (Match match in Regex.Matches(responseString, pattern, RegexOptions.Singleline))
             {
                 vkUser = new VkUser()
@@ -98,7 +98,7 @@ namespace vkinviter
                 Logger.AddText(vkUser.ToString());
                 listVkUser.Add(vkUser);
             }
-            string patternNorm = @"'http:\/\/[^\'\]]+'";
+            string patternNorm = @"'http:\/\/cs\d+\.vk\.me";
             string patternDeactiveOrDeleted = @"'\/images\/\w+\.gif'";
 
             MatchCollection mcNorm = Regex.Matches(responseString, patternNorm);

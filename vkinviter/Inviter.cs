@@ -202,6 +202,8 @@ namespace vkinviter
                     answer = ParseInviteAnswer(resp.ResponseText);
 
                 } while (answer.Key == InivteAnswerCodes.CaptchaEnter);
+
+                usersInThecity[i].InvitationResult = answer.Value;
             }
         }
 
