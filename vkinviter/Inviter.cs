@@ -90,11 +90,10 @@ namespace vkinviter
             {
                 offset = 0;
                 hasMore = false;
-                url = baseUrl;
 
                 do
                 {
-                    url += alSearchEngine.GetSearchUrlAddition(offset);
+                    url = baseUrl + alSearchEngine.GetSearchUrlAddition(offset);
 
                     Thread.Sleep(HttpConnector.TIMEOUT);
                     HttpWebResponseEx resp = HttpConnector.SendHttpWebRequestAndGetResponse(url, HttpMethod.GET);
