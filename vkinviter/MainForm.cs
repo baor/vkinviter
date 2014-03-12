@@ -79,14 +79,14 @@ namespace vkinviter
             Logger.AddText("textBoxGroupLink.Text == {0}", textBoxGroupLink.Text);
             Logger.AddText("textBoxEventLink.Text == {0}", textBoxEventLink.Text);
             Logger.AddText("comboBoxCountry.SelectedText == {0}", comboBoxCountry.SelectedItem.ToString());
-            Logger.AddText("comboBoxCity.SelectedText == {0}", comboBoxCity.SelectedItem.ToString());
+            Logger.AddText("comboBoxCity.SelectedText == {0}", comboBoxCity.Text.ToString());
 
             
             string groupId = Inviter.GetGroupIdByUrl(textBoxGroupLink.Text);
             string eventId = Inviter.GetGroupIdByUrl(textBoxEventLink.Text);
 
             string countryId = Countries[comboBoxCountry.SelectedItem.ToString()].ToString();
-            string citiesList = comboBoxCity.SelectedItem.ToString();
+            string citiesList = comboBoxCity.Text.ToString();
 
             Dictionary<string, string> workArgs = new Dictionary<string, string>();
 
@@ -170,6 +170,7 @@ namespace vkinviter
         {
             resultForm.richTextBoxResult.AppendText(StatisticsAndReport.GetReport());
             resultForm.ShowDialog();
+            resultForm.richTextBoxResult.Clear();
         }
     }
 }
