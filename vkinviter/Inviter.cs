@@ -102,9 +102,10 @@ namespace vkinviter
                     if (alSearchEngine.IsFirstStep() && (offset == 0))
                     {
                         totalUserCount = VkUserEx.AlSearchGetSummaryUserCount(responseString);
-                        if (totalUserCount == 0)
-                            throw new ArgumentNullException("totalUserCount");
                     }
+
+                    if (totalUserCount == 0)
+                        break;
 
                     vkUsersSubset = VkUserEx.AlSearchParsePeopleRow(responseString);
                     vkUsersInTheCity = vkUsersInTheCity.Union(vkUsersSubset, new VkUserComparer()).ToList();

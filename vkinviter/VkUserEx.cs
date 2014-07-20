@@ -18,6 +18,8 @@ namespace vkinviter
             */
             string patternGetUsersCount = "<!json>{.*\"summary\":\"В этой группе найдено (.*) человек\\w?<span";
             MatchCollection mcUserCount = Regex.Matches(responseString, patternGetUsersCount);
+            if ((mcUserCount.Count == 0) || (mcUserCount[0].Groups.Count == 0))
+                return 0;
             mcUserCount = Regex.Matches(mcUserCount[0].Groups[1].Value, "(\\d+)");
             int userCount = 0;
             foreach (Match match in mcUserCount)
