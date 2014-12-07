@@ -25,8 +25,7 @@ namespace vkinviter
         public Inviter()
         {
             Logger.LogMethod();
-            HttpConnector.HttpCookie = new CookieContainer();
-
+            
             InviteResults = new List<string>();
             DataForReport = new Dictionary<string, string>();
         }
@@ -34,6 +33,7 @@ namespace vkinviter
         public void Logon()
         {
             Logger.LogMethod();
+            HttpConnector.HttpCookie = new CookieContainer();
             Action<string,string> AddToCookie = (cookieName, cookieValue) =>
                 HttpConnector.HttpCookie.Add(new Uri(HttpConnector.HTTPVKCOM), new Cookie(cookieName, cookieValue));
             AddToCookie("remixchk", "5");
@@ -80,12 +80,12 @@ namespace vkinviter
             List<VkUser> vkUsersInTheCity = new List<VkUser>();
             List<VkUser> vkUsersSubset;
 
-            string baseUrl = string.Format("{0}al_search.php?al=1&c[city]={1}&c[country]={2}&c[group]={3}&c[name]=1&c[section]=people",
-                                    HttpConnector.HTTPVKCOM, cityId, countryId, groupId);
+            string baseUrl = string.Format("{0}al_search.php",
+                                    HttpConnector.HTTPVKCOM);
 
             int offset;
             bool hasMore;
-            string url;
+            string postBody;
             do
             {
                 offset = 0;
@@ -93,10 +93,13 @@ namespace vkinviter
 
                 do
                 {
-                    url = baseUrl + alSearchEngine.GetSearchUrlAddition(offset);
+                    postBody = string.Format("al=1&c%5Bcity%5D={0}&c%5Bcountry%5D={1}&c%5Bgroup%5D={2}&c%5Bname%5D=1&c%5Bphoto%5D=1&c%5Bsection%5D=people", cityId, countryId, groupId) 
+                        + alSearchEngine.GetSearchUrlAddition(offset);
 
                     Thread.Sleep(HttpConnector.TIMEOUT);
-                    HttpWebResponseEx resp = HttpConnector.SendHttpWebRequestAndGetResponse(url, HttpMethod.GET);
+                    HttpWebResponseEx resp = HttpConnector.SendHttpWebRequestAndGetResponse(baseUrl, HttpMethod.POST,
+                        requestBody: postBody);
+
                     string responseString = resp.ResponseText;
 
                     if (alSearchEngine.IsFirstStep() && (offset == 0))
@@ -136,12 +139,12 @@ namespace vkinviter
             decimal workProgerss = 0m;
             do
             {
-                //"/friends?act=get_section_friends&al=1&gid=#{group_id}&offset=#{offset}&section=members&sugg_rev=0"
-                string url = string.Format("{0}friends?act=get_section_friends&al=1&gid={1}&offset={2}&section=members&sugg_rev=0",
-                    HttpConnector.HTTPVKCOM, eventId, offset);
+                string url = string.Format("{0}friends",
+                    HttpConnector.HTTPVKCOM);
 
                 Thread.Sleep(HttpConnector.TIMEOUT);
-                HttpWebResponseEx resp = HttpConnector.SendHttpWebRequestAndGetResponse(url, HttpMethod.GET);
+                HttpWebResponseEx resp = HttpConnector.SendHttpWebRequestAndGetResponse(url, HttpMethod.POST,
+                    requestBody: string.Format("act=get_section_friends&al=1&gid={0}&offset={1}&section=members&sugg_rev=0", eventId, offset));
                 string responseString = resp.ResponseText;
                 vkUsersInTheGroupSubSet = VkUserEx.ParseFriendsList(responseString);
                 offset += vkUsersInTheGroupSubSet.Count;
@@ -199,6 +202,14 @@ namespace vkinviter
                         HttpConnector.HTTPVKCOM + "al_page.php",
                         HttpMethod.POST,
                         requestBody: requestBody);
+                /*    if (resp.ResponseText == "The remote server returned an error: (501) Not Implemented.")
+                    {
+                        Logon();
+                        resp = HttpConnector.SendHttpWebRequestAndGetResponse(
+                        HttpConnector.HTTPVKCOM + "al_page.php",
+                        HttpMethod.POST,
+                        requestBody: requestBody);
+                    }*/
                     answer = ParseInviteAnswer(resp.ResponseText);
 
                 } while (answer.Key == InivteAnswerCodes.CaptchaEnter);
@@ -220,6 +231,10 @@ namespace vkinviter
             string patternCaptcha = @"(\d+)<!>\d*";
             string patternResult = @"<!int>\d+<!>(.*)";
             string patternAccessError = @"([^<>]*)<!><!>\d*";
+            if (responseString == "The remote server returned an error: (501) Not Implemented.")
+            {
+                return new KeyValuePair<string, string>("501", "The remote server returned an error: (501) Not Implemented.");
+            }
             MatchCollection mcResult = Regex.Matches(responseString, patternAnsw);
             MatchCollection mcSubResult;
             switch(mcResult[0].Groups[1].Value)

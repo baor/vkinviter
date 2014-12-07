@@ -16,13 +16,17 @@ namespace vkinviter
             {
                 if (_ResponseText == null)
                 {
-                    using (StreamReader sReader = new StreamReader(HttpWebResponse.GetResponseStream(), 
+                    using (StreamReader sReader = new StreamReader(HttpWebResponse.GetResponseStream(),
                         Encoding.GetEncoding(HttpWebResponse.CharacterSet)))
                     {
                         _ResponseText = sReader.ReadToEnd();
                     }
                 }
                 return _ResponseText;
+            }
+            set 
+            { 
+                _ResponseText = value; 
             }
         }       
 

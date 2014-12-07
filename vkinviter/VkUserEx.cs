@@ -116,7 +116,7 @@ namespace vkinviter
             }
 
             int httpCount = mcNorm.Count + mcDeactiveOrDeleted.Count;
-            if (listVkUser.Count != httpCount)
+            if (listVkUser.Count < httpCount)
             {
                 throw new Exception("http total count != user count");
             }

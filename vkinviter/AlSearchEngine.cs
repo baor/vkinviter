@@ -117,23 +117,23 @@ namespace vkinviter
             string url = string.Empty;
 
             if (SexId > 0)
-                url += "&c[sex]=" + SexId;
+                url += "&c%5Bsex%5D=" + SexId;
 
             if (SortId > 0)
-                url += "&c[sort]=" + SortId;
+                url += "&c%5Bsort%5D=" + SortId;
 
             if (StatusId > 0)
-                url += "&c[status]=" + StatusId;
+                url += "&c%5Bstatus%5D=" + StatusId;
 
             if (offset > 0)
                 url += "&offset=" + offset;
 
             if (AgeVal == AGEVKMIN - 1)
-                url += string.Format("&c[age_to]={0}", AGEVKMIN);
+                url += string.Format("&c%5Bage_to%5D={0}", AGEVKMIN);
             else if ((AgeVal >= AGEVKMIN) && (AgeVal < AGEMAX))
-                url += string.Format("&c[age_from]={0}&c[age_to]={0}", AgeVal);
+                url += string.Format("&c%5Bage_from%5D={0}&c%5Bage_to%5D={0}", AgeVal);
             else if (AgeVal == AGEMAX)
-                url += string.Format("&c[age_from]={0}", AgeVal);
+                url += string.Format("&c%5Bage_from%5D={0}", AgeVal);
 
             return url;
         }

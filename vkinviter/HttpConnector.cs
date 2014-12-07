@@ -58,9 +58,19 @@ namespace vkinviter
                     stream.Write(data, 0, data.Length);
                 }
             }
-
+           
             HttpWebResponseEx responseEx = new HttpWebResponseEx();
-            responseEx.HttpWebResponse = (HttpWebResponse)httpWReq.GetResponse();
+            try
+            {
+                responseEx.HttpWebResponse = (HttpWebResponse)httpWReq.GetResponse();
+            }
+            catch (System.Net.WebException ex)
+            {
+                Logger.AddText(ex.StackTrace);
+                responseEx.ResponseText = ex.Message;
+                return responseEx;
+            }
+
             if (!withoutLogging)
                 Logger.AddText("Response={0}", responseEx.ToString());
             return responseEx;
